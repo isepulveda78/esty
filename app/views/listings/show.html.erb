@@ -1,0 +1,23 @@
+<p>
+  <%= image_tag(@listing.image, width: 300) if @listing.image.attached? %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @listing.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @listing.description %><br><br>
+  <%= link_to "Buy It Now", new_listing_order_path(@listing), class: "btn btn-primary", data: {no_turbolink: true} %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @listing.price %>
+</p>
+<% if (current_user == @listing.user) %>
+<%= link_to 'Edit', edit_listing_path(@listing) %> |
+<% end %>
+<%= link_to 'Back', listings_path %>

@@ -1,0 +1,28 @@
+<div class="jumbotron">
+      <h1 class="display-3">Hat World</h1>
+      <p class="lead">Find hats from all over the world!</p>
+      <hr class="my-4">
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+      </p>
+</div>
+<div class="row">
+    <% @listings.each do |listing| %>
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="img-thumbnail">
+                <center><%= image_tag(listing.image, width: 200) if listing.image.attached? %>
+                  <h5><%= listing.name %></h5>
+                  <h6><%= listing.price %></h6>
+                  <p><%= link_to 'Buy', listing, class: 'btn btn-info' %></p>
+                  <p><%= "Sold by #{listing.user.name}" %></p>
+                  <% if (user_signed_in?) && (current_user == listing.user) %>
+                  <p><%= link_to 'Edit', edit_listing_path(listing) %> | <%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></p></center>
+                  <% end %>
+              </div>
+            </div>
+    <% end %>
+    </div>
+    <% if(user_signed_in?) %>
+    <%= link_to 'New Listing', new_listing_path %>
+    <% end %>
+<br>

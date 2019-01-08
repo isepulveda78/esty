@@ -1,0 +1,32 @@
+<div class="center">
+  <h2>Your sales history</h2>
+</div>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Image</th>
+    <th scope="col">Item</th>
+    <th scope="col">Price</th>
+    <th scope="col">Customer</th>
+    <th scope="col">Date Sold</th>
+  </tr>
+</thead>
+<tbody>
+<% @orders.each do |order| %>
+<tr>
+  <td scope="row"><%= image_tag(order.listing.image, width: 200) if order.listing.image.attached? %></td>
+  <td><%= order.listing.name %></td>
+  <td><%= number_to_currency(order.listing.price) %></td>
+  <td><%= order.buyer.name %></td>
+  <td><% order.created_at.strftime("%B %-d, %Y") %></td>
+  <td>
+  </td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<br>
+<% if user_signed_in? %>
+<%= link_to 'New Listing', new_listing_path, class: "btn btn-link" %>
+<% end %>
